@@ -16,7 +16,7 @@ We learn about how to manipulate `¬ P` in Lean.
 In Lean, `¬ P` is *defined* to mean `P → false`. So `¬ P` and `P → false`
 are *definitionally equal*. Check out the explanation of definitional
 equality in the "equality" section of Part B of the course notes:
-https://www.ma.imperial.ac.uk/~buzzard/xena/formalising-mathematics-2023/Part_B/equality.html
+https://www.ma.imperial.ac.uk/~buzzard/xena/formalising-mathematics-2024/Part_B/equality.html
 
 ## Tactics
 
@@ -33,45 +33,76 @@ and the following tactics may also be useful:
 variable (P Q R : Prop)
 
 example : ¬True → False := by
-  sorry
+  intro ht
+  apply ht
+  triv
   done
 
 example : False → ¬True := by
-  sorry
+  intro hf
+  intro
+  exact hf
   done
 
 example : ¬False → True := by
-  sorry
+  intro
+  triv
   done
 
 example : True → ¬False := by
-  sorry
+  intro
+  intro hf
+  exact hf
   done
 
 example : False → ¬P := by
-  sorry
+  intro hf
+  intro
+  exact hf
   done
 
 example : P → ¬P → False := by
-  sorry
+  intro hp
+  intro hnp
+  apply hnp
+  exact hp
   done
 
 example : P → ¬¬P := by
-  sorry
+  intro hp
+  intro hnp
+  apply hnp
+  exact hp
   done
 
 example : (P → Q) → ¬Q → ¬P := by
-  sorry
+  intro hpq
+  intro hnq
+  intro hp
+  apply hnq
+  apply hpq
+  exact hp
   done
 
 example : ¬¬False → False := by
-  sorry
+  intro hnnf
+  apply hnnf
+  intro hf
+  exact hf
   done
 
 example : ¬¬P → P := by
-  sorry
+  intro hnnp
+  by_contra hnp
+  apply hnnp
+  exact hnp
   done
 
 example : (¬Q → ¬P) → P → Q := by
-  sorry
+  intro h1
+  intro hp
+  by_contra h
+  apply h1 at h
+  apply h
+  exact hp
   done
